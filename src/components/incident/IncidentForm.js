@@ -6,7 +6,9 @@ import SubmitButton from '../form/SubmitButton'
 
 import styles from './IncidentForm.module.css'
 
-function IncidentForm({ handleSubmit, btnText, incidentData }) {
+import api from "../../services/api";
+
+function IncidentForm({ handleSubmit, btnText, incidentData, errors = null }) {
   const defaultIncident = {
     title: '',
     description: '',
@@ -20,33 +22,21 @@ function IncidentForm({ handleSubmit, btnText, incidentData }) {
   const [status, setStatus] = useState(incident.status)
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/criticalities', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setCriticalities(data)
+    api
+      .get(`/criticalities`)
+      .then((res) => {
+        setCriticalities(res.data)
       })
-
-    fetch('http://localhost:8000/api/types', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setTypes(data)
+    api
+      .get(`/types`)
+      .then((res) => {
+        setTypes(res.data)
       })
   }, [])
 
   const submit = (e) => {
     e.preventDefault()
     handleSubmit(incident)
-    console.log(incident)
   }
 
   function handleChange(e) {
@@ -78,6 +68,7 @@ function IncidentForm({ handleSubmit, btnText, incidentData }) {
         placeholder="Insira o título do incidente"
         handleOnChange={handleChange}
         value={incident.title}
+        errors={errors.title ?? null}
       />
       <Input
         type="text"
@@ -86,6 +77,7 @@ function IncidentForm({ handleSubmit, btnText, incidentData }) {
         placeholder="Insira a descrição do incidente"
         handleOnChange={handleChange}
         value={incident.description}
+        errors={errors.description ?? null}
       />
       <Select
         name="criticality_id"
@@ -93,6 +85,7 @@ function IncidentForm({ handleSubmit, btnText, incidentData }) {
         options={criticalities}
         handleOnChange={handleChangeSelect}
         value={incident.criticality_id}
+        errors={errors.criticality_id ?? null}
       />
       <Select
         name="type_id"
@@ -100,14 +93,15 @@ function IncidentForm({ handleSubmit, btnText, incidentData }) {
         options={types}
         handleOnChange={handleChangeSelect}
         value={incident.type_id}
+        errors={errors.type_id ?? null}
       />
-
       <Switch
         name="status"
         id="status"
         checked={status ? "checked" : ""}
         handleOnChange={handleStatus}
         value={status}
+        errors={errors.status ?? null}
       />
       <SubmitButton text={btnText} />
     </form>

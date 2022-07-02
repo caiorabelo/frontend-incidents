@@ -1,6 +1,6 @@
 import styles from './Switch.module.css'
 
-function Switch({ name, handleOnChange, value, checked }) {
+function Switch({ name, handleOnChange, value, checked, errors=null }) {
   return (
     <div>
       <label className={styles.title}>Status</label>
@@ -16,6 +16,7 @@ function Switch({ name, handleOnChange, value, checked }) {
         />
         <span className={`${styles.slider} ${styles.round}`}></span>
       </label>
+      {errors && (<small>{errors[0]}</small>)}
     </div>
   )
 }

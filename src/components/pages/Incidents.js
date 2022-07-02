@@ -10,6 +10,8 @@ import Message from '../layout/Message'
 
 import styles from './Incidents.module.css'
 
+import api from "../../services/api";
+
 function Incidents() {
   const [incidents, setIncidents] = useState([])
   const [removeLoading, setRemoveLoading] = useState(false)
@@ -24,31 +26,22 @@ function Incidents() {
   useEffect(() => {
     // Para ver o loading
     setTimeout(
-      () =>
-        fetch('http://localhost:8000/api/incidents', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((resp) => resp.json())
-          .then((data) => {
-            setIncidents(data)
+      () => {
+        api
+          .get(`/incidents`)
+          .then((res) => {
+            setIncidents(res.data)
             setRemoveLoading(true)
-          }),
+          })
+      },
       100,
     )
   }, [])
 
-  async function removeIncident(id) {
-    await fetch(`http://localhost:8000/api/incidents/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
+  function removeIncident(id) {
+    api
+      .delete(`/incidents/${id}`)
+      .then(() => {
         setIncidents(incidents.filter((incident) => incident.id !== id))
         setIncidentMessage('Incidente removido com sucesso!')
       })

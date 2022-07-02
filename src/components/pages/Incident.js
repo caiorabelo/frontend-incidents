@@ -8,48 +8,42 @@ import Container from '../layout/Container'
 import IncidentForm from '../incident/IncidentForm'
 import Message from '../layout/Message'
 
+import api from "../../services/api";
+
 
 function Incident() {
   let { id } = useParams()
+  const [errors, setErrors] = useState({})
   const [incident, setIncident] = useState([])
   const [showIncidentForm, setShowIncidentForm] = useState(false)
   const [message, setMessage] = useState('')
   const [type, setType] = useState('success')
 
   useEffect(() => {
-    // Para ver o loading
-    setTimeout(
-      () =>
-        fetch(`http://localhost:8000/api/incidents/${id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((resp) => resp.json())
-          .then((data) => {
-            setIncident(data)
-          }),
-      0,
-    )
+    getIncident(id)
   }, [id])
 
+  function getIncident(id) {
+    api
+      .get(`/incidents/${id}`)
+      .then((res) => {
+        setIncident(res.data)
+      })
+  }
+
   function editPost(incident) {
-    fetch(`http://localhost:8000/api/incidents/${incident.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(incident),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log('Retorno da autalização',data)
-        // setIncident(data)
+    api
+      .put(`/incidents/${incident.id}`, incident)
+      .then((res) => {
+        getIncident(incident.id)
+        setErrors({})
         setShowIncidentForm(!showIncidentForm)
         setMessage('Incidente atualizado!')
         setType('success')
       })
+      .catch((err) => {
+        setErrors(err.response.data.errors)
+      });
   }
 
   function toggleIncidentForm() {
@@ -88,6 +82,7 @@ function Incident() {
                     handleSubmit={editPost}
                     btnText="Concluir Edição"
                     incidentData={incident}
+                    errors={errors ?? null}
                   />
                 </div>
               )}
