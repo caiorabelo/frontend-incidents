@@ -1,0 +1,49 @@
+.incident_details {
+  /* padding: 1em; */
+}
+
+.incident_details h1,
+.incident_details h2,
+.incident_details p {
+  margin-bottom: 0.5em;
+}
+
+.incident_details h1 {
+  background-color: #222;
+  color: #ffbb33;
+  padding: 0.4em;
+  text-align: center;
+}
+
+.incident_details span {
+  font-weight: bold;
+}
+
+.details_container,
+.incident_form_container {
+  border-bottom: 1px solid #7a7a7a;
+  padding-bottom: 1.2em;
+  margin-bottom: 1.2em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background-color: #222;
+  color: #fff;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  transition: 0.5s;
+  border: none;
+  cursor: pointer;
+  max-height: 40px;
+}
+
+.btn:hover {
+  color: #ffbb33;
+}
+
+.form {
+  width: 100%;
+}

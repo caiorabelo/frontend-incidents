@@ -1,0 +1,14 @@
+.newincident_container {
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.newincident_container h1 {
+  margin-bottom: 0.5em;
+}
+
+.newincident_container p {
+  color: #7b7b7b;
+}

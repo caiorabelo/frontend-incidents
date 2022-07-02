@@ -1,0 +1,10 @@
+.incident_container {
+  padding: 2em;
+}
+
+.title_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 2em;
+}
