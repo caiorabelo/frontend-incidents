@@ -1,5 +1,5 @@
 import styles from './Home.module.css'
-import savings from '../../img/savings.svg'
+import incident from '../../img/incident.png'
 
 import LinkButton from '../layout/LinkButton'
 
@@ -11,7 +11,7 @@ function Home() {
       </h1>
       <p>Comece a gerenciar os incidentes agora!</p>
       <LinkButton to="/newincident" text="Novo Incidente" />
-      <img src={savings} alt="Savings" />
+      <img src={incident} alt="Incident"/>
     </section>
   )
 }

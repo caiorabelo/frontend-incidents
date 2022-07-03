@@ -21,12 +21,14 @@ function IncidentForm({ handleSubmit, btnText, incidentData, errors = null }) {
   const [types, setTypes] = useState([])
   const [status, setStatus] = useState(incident.status)
 
+
   useEffect(() => {
     api
       .get(`/criticalities`)
       .then((res) => {
         setCriticalities(res.data)
       })
+
     api
       .get(`/types`)
       .then((res) => {

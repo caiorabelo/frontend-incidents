@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    command: npm start
+    ports:
+     - "8010:8010"
+    volumes:
+     - .:/usr/app
+    networks:
+      - laradock_backend
+networks:
+  laradock_backend:
+    external: true
+   

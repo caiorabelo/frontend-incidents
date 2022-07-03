@@ -20,7 +20,12 @@ function Incident() {
   const [type, setType] = useState('success')
 
   useEffect(() => {
-    getIncident(id)
+    setTimeout(
+      () => {
+        getIncident(id)
+      },
+      0
+    )
   }, [id])
 
   function getIncident(id) {

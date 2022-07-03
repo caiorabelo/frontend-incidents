@@ -5,6 +5,11 @@
   padding: 1em;
 }
 
+.navbar img{
+  max-width: 64px;
+  max-height: 64px;
+}
+
 .list {
   display: flex;
   list-style: none;
