@@ -1,6 +1,6 @@
 # FRONTEND INCIDENTES
 
-## About
+## Sobre
 
 Sistema desenvolvido durante o projeto de programação para a empresa RedBelt. A aplicação consome e exibe os da API através de um frontend desenvolvido na biblioteca React.
 
